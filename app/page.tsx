@@ -295,18 +295,18 @@ export default function Portfolio() {
                 <SkillBadge name="Python" level={100} />
                 <SkillBadge name="Machine Learning" level={100} />
                 <SkillBadge name="Deep Learning" level={100} />
-                <SkillBadge name="Neural Networks" level={95} />
-                <SkillBadge name="TensorFlow" level={90} />
-                <SkillBadge name="PyTorch" level={90} />
+                <SkillBadge name="Neural Networks" level={100} />
+                <SkillBadge name="TensorFlow" level={100} />
+                <SkillBadge name="PyTorch" level={100} />
               </Marquee>
               <Marquee reverse pauseOnHover className="[--duration:20s]">
-                <SkillBadge name="Scikit-learn" level={95} />
-                <SkillBadge name="Generative AI" level={90} />
-                <SkillBadge name="Langchain" level={85} />
-                <SkillBadge name="Langgraph" level={85} />
-                <SkillBadge name="FastAPi" level={80} />
-                <SkillBadge name="Git" level={90} />
-                <SkillBadge name="MLOps" level={75} />
+                <SkillBadge name="Scikit-learn" level={100} />
+                <SkillBadge name="Generative AI" level={100} />
+                <SkillBadge name="Langchain" level={100} />
+                <SkillBadge name="Langgraph" level={100} />
+                <SkillBadge name="FastAPi" level={100} />
+                <SkillBadge name="Git" level={100} />
+                <SkillBadge name="MLOps" level={100} />
               </Marquee>
               <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-zinc-900"></div>
               <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-zinc-900"></div>

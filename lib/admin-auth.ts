@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { SignJWT, jwtVerify } from 'jose'
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL!
-const ADMIN_PASSWORD_HASH = Buffer.from(process.env.ADMIN_PASSWORD_HASH!, 'base64').toString('utf-8')
+const ADMIN_PASSWORD_HASH =process.env.ADMIN_PASSWORD_HASH!
 const JWT_SECRET = new TextEncoder().encode(process.env.NEXTAUTH_SECRET!)
 console.log('Loaded hash length:', ADMIN_PASSWORD_HASH?.length) // Should be 60
 console.log('Hash starts with:', ADMIN_PASSWORD_HASH?.substring(0, 10))
