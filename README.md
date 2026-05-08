@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 VimalDev Portfolio
+# 🚀 Rohan Portfolio
 
 ### *Quantitative Analyst | AI/ML Engineer | Data Scientist*
 
