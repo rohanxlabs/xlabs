@@ -408,7 +408,7 @@ export default function Portfolio() {
 
             <ProjectCard
               title="Sentinel-ml"
-              description=""
+              description="An end-to-end Machine Learning pipeline designed for security analytics and intelligent anomaly detection to identify potential system threats in real life"
               tags={["Python","Machine Learning","Prometheus","Scikit-Learn","MLflow"]}
               image="/sentinel.png"
               repoUrl="https://github.com/rohanxlabs/sentinel-ml.git"
