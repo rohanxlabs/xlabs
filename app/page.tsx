@@ -406,6 +406,15 @@ export default function Portfolio() {
               repoUrl="https://github.com/rohanxlabs/rag-based-qa-system"
             />
 
+            <ProjectCard
+              title="Sentinel-ml"
+              description=""
+              tags={["Python","Machine Learning","Prometheus","Scikit-Learn","MLflow"]}
+              image="/sentinel.png"
+              repoUrl="https://github.com/rohanxlabs/sentinel-ml.git"
+            />
+
+
           </div>
         </div>
       </section>
