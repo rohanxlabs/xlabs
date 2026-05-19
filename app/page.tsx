@@ -368,6 +368,14 @@ export default function Portfolio() {
               repoUrl="https://github.com/rohanxlabs/Recommendation-system"
             />
             <ProjectCard
+              title="PerceptAgent"
+              description="Real-time object detection pipeline powered by YOLOv8 + Groq LLM agentic loop. Detects, track, and reasons about live video scenes"
+              tags={["Streamlit","YOLOv8","Ultralytics","GROQ","Agent Workflows"]}
+              image="/perceptagent.png"
+              repoUrl="https://github.com/rohanxlabs/PercerptAgent.git"
+            />
+
+            <ProjectCard
               title="6-DOF Robotic Arm (MuJoCo)"
               description="a 6-DOF robotic arm simulation built with MuJoCo fot high-fidelity physics modeling and reinforcement learning research"
               tags={["Python", "MuJoCo", "Gymnasium", "Reinforcement Learninf", "Stablebaseline3", "Agentic AI"]}
