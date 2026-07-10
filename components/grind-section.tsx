@@ -225,7 +225,7 @@ const handleMouseDown = (e: React.MouseEvent) => {
       <div className="flex justify-center mb-12">
         <div
           ref={sliderRef}
-          className="relative w-96 h-20 bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 rounded-full overflow-hidden cursor-pointer select-none"
+          className="relative w-96 h-20 bg-[#0c0c0f] backdrop-blur-sm border border-white/[0.06] rounded-full overflow-hidden cursor-pointer select-none"
         >
           {/* Animated background glow */}
           <div className="absolute -inset-2 bg-gradient-to-r from-red-500/20 via-phthalo-500/20 to-blue-500/20 rounded-full blur-lg opacity-50 animate-pulse"></div>
@@ -339,7 +339,7 @@ const handleMouseDown = (e: React.MouseEvent) => {
               className="grid grid-cols-1 lg:grid-cols-2 gap-8"
             >
               {/* Video Section */}
-              <div className="relative overflow-hidden rounded-xl bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 h-[600px]">
+              <div className="relative overflow-hidden rounded-xl bg-[#0c0c0f] backdrop-blur-sm border border-white/[0.06] h-[600px]">
                 <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 to-red-700/20 rounded-xl blur opacity-50"></div>
 
                 <div className="relative p-6 h-full flex flex-col">
@@ -368,7 +368,7 @@ const handleMouseDown = (e: React.MouseEvent) => {
               </div>
 
               {/* Gym Journey Timeline */}
-              <div className="relative overflow-hidden rounded-xl bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 p-6 h-[600px]">
+              <div className="relative overflow-hidden rounded-xl bg-[#0c0c0f] backdrop-blur-sm border border-white/[0.06] p-6 h-[600px]">
                 <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 to-red-700/20 rounded-xl blur opacity-50"></div>
 
                 <div className="relative h-full flex flex-col">
@@ -433,7 +433,7 @@ const handleMouseDown = (e: React.MouseEvent) => {
               className="grid grid-cols-1 lg:grid-cols-2 gap-8"
             >
               {/* Math Images Slider */}
-              <div className="relative overflow-hidden rounded-xl bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 h-[600px]">
+              <div className="relative overflow-hidden rounded-xl bg-[#0c0c0f] backdrop-blur-sm border border-white/[0.06] h-[600px]">
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-blue-700/20 rounded-xl blur opacity-50"></div>
 
                 <div className="relative p-6 h-full flex flex-col">
@@ -486,7 +486,7 @@ const handleMouseDown = (e: React.MouseEvent) => {
               </div>
 
               {/* Math Journey Timeline */}
-              <div className="relative overflow-hidden rounded-xl bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 p-6 h-[600px]">
+              <div className="relative overflow-hidden rounded-xl bg-[#0c0c0f] backdrop-blur-sm border border-white/[0.06] p-6 h-[600px]">
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-blue-700/20 rounded-xl blur opacity-50"></div>
 
                 <div className="relative h-full flex flex-col">
@@ -550,7 +550,7 @@ const handleMouseDown = (e: React.MouseEvent) => {
               transition={{ duration: 0.2 }}
               className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-[600px]"
             >
-              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-zinc-800/80 to-zinc-900/80 backdrop-blur-sm border border-zinc-700/50 p-12 col-span-2 flex items-center justify-center">
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-phthalo-900/20 to-[#0c0c0f] backdrop-blur-sm border border-white/[0.06] p-12 col-span-2 flex items-center justify-center">
                 <div className="absolute -inset-1 bg-gradient-to-r from-phthalo-500/20 to-phthalo-700/20 rounded-2xl blur opacity-50"></div>
 
                 <div className="relative text-center">

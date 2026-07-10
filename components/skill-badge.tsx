@@ -10,29 +10,28 @@ interface SkillBadgeProps {
 export function SkillBadge({ name, level }: SkillBadgeProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -5 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      viewport={{ once: true, margin: "-20px" }}
+      whileHover={{ y: -4 }}
+      className="w-40 shrink-0"
     >
-      <div className="relative overflow-hidden rounded-xl bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 p-6 h-full transition-all duration-300 hover:border-phthalo-500/50">
-        <div className="absolute -inset-1 bg-gradient-to-r from-phthalo-500/10 to-phthalo-700/10 rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-
+      <div className="card card-hover p-5 h-full">
         <div className="relative">
-          <div className="text-center mb-4 font-medium text-lg">{name}</div>
+          <div className="text-center mb-4 font-semibold text-sm text-content-secondary">{name}</div>
 
-          <div className="relative h-2.5 w-full bg-zinc-700 rounded-full overflow-hidden">
+          <div className="relative h-1.5 w-full bg-white/[0.06] rounded-full overflow-hidden">
             <motion.div
               className="absolute top-0 left-0 h-full bg-gradient-to-r from-phthalo-600 to-phthalo-800 rounded-full"
               initial={{ width: 0 }}
               whileInView={{ width: `${level}%` }}
-              transition={{ duration: 1, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               viewport={{ once: true }}
             />
           </div>
 
-          <div className="mt-2 text-right text-sm text-zinc-400">{level}%</div>
+          <div className="mt-2 text-right text-xs text-content-tertiary font-medium tabular-nums">{level}%</div>
         </div>
       </div>
     </motion.div>

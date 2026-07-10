@@ -2,52 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
-  }
+/* ========================================
+   DESIGN SYSTEM TOKENS
+   ======================================== */
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-  }
+:root {
+  /* Base palette - premium dark zinc */
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 8% 5.5%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 8% 5.5%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 7% 6.5%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 7% 6.5%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 7% 6.5%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5% 12%;
+  --input: 240 5% 12%;
+  --ring: 240 4.9% 83.9%;
+  --radius: 0.75rem;
+
+  /* Semantic surface tokens */
+  --surface-base: 240 10% 3.9%;
+  --surface-raised: 240 8% 5.5%;
+  --surface-overlay: 240 7% 7%;
+  --surface-glass: 240 8% 5.5%;
+  --surface-glass-border: 240 5% 14%;
+  --surface-glass-bg: 240 8% 5.5%;
+  --surface-input: 240 7% 6.5%;
+
+  /* Text tokens */
+  --text-primary: 0 0% 98%;
+  --text-secondary: 240 5% 64.9%;
+  --text-tertiary: 240 5% 45%;
+  --text-inverse: 240 10% 3.9%;
+
+  /* Accent tokens */
+  --accent-emerald: 154 60% 36%;
+  --accent-emerald-light: 154 50% 46%;
+  --accent-emerald-muted: 154 40% 20%;
 }
+
+/* ========================================
+   BASE LAYER
+   ======================================== */
 
 @layer base {
   * {
@@ -55,17 +60,174 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  ::selection {
+    background-color: hsl(var(--accent-emerald) / 0.3);
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring) / 0.8);
+    outline-offset: 2px;
+  }
+
+  img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 }
 
+/* ========================================
+   UTILITY LAYER
+   ======================================== */
+
 @layer utilities {
-  .animation-delay-2000 {
-    animation-delay: 2s;
+  .text-balance {
+    text-wrap: balance;
   }
-  .animation-delay-4000 {
-    animation-delay: 4s;
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .glass {
+    background: hsl(var(--surface-glass-bg) / 0.55);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid hsl(var(--surface-glass-border) / 0.5);
+  }
+
+  .glass-strong {
+    background: hsl(var(--surface-glass-bg) / 0.75);
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+    border: 1px solid hsl(var(--surface-glass-border) / 0.6);
+  }
+
+  .card {
+    @apply relative overflow-hidden rounded-2xl bg-[#0c0c0f] border border-white/[0.06] backdrop-blur-xl transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:border-white/[0.12] hover:shadow-lg hover:shadow-black/20;
+  }
+
+  .section-py {
+    @apply py-24 md:py-32;
+  }
+
+  .animate-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
+
+/* ========================================
+   BACKGROUND TEXTURES
+   ======================================== */
+
+body {
+  background-color: #09090b;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(38, 128, 74, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(38, 128, 74, 0.04), transparent);
+}
+
+/* Subtle noise texture overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px;
+}
+
+/* Ensure content sits above noise */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+
+.custom-scrollbar-phthalo::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar-phthalo::-webkit-scrollbar-track {
+  background: rgba(39, 39, 42, 0.3);
+  border-radius: 2px;
+}
+.custom-scrollbar-phthalo::-webkit-scrollbar-thumb {
+  background: rgba(38, 128, 74, 0.6);
+  border-radius: 2px;
+}
+.custom-scrollbar-phthalo::-webkit-scrollbar-thumb:hover {
+  background: rgba(38, 128, 74, 0.8);
+}
+
+.custom-scrollbar-red::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar-red::-webkit-scrollbar-track {
+  background: rgba(39, 39, 42, 0.3);
+  border-radius: 2px;
+}
+.custom-scrollbar-red::-webkit-scrollbar-thumb {
+  background: rgba(239, 68, 68, 0.6);
+  border-radius: 2px;
+}
+.custom-scrollbar-red::-webkit-scrollbar-thumb:hover {
+  background: rgba(239, 68, 68, 0.8);
+}
+
+.custom-scrollbar-blue::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar-blue::-webkit-scrollbar-track {
+  background: rgba(39, 39, 42, 0.3);
+  border-radius: 2px;
+}
+.custom-scrollbar-blue::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.6);
+  border-radius: 2px;
+}
+.custom-scrollbar-blue::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.8);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
 
 @keyframes blob {
   0% {
@@ -112,119 +274,6 @@
   animation: marquee-vertical var(--duration) linear infinite;
 }
 
-/* Handle the [animation-direction:reverse] utility class */
-.\[animation-direction\:reverse\] {
-  animation-direction: reverse !important;
-}
-
-/* Add this to your globals.css file */
-.custom-scrollbar-phthalo::-webkit-scrollbar {
-  width: 4px;
-}
-.custom-scrollbar-phthalo::-webkit-scrollbar-track {
-  background: rgba(39, 39, 42, 0.3);
-  border-radius: 2px;
-}
-.custom-scrollbar-phthalo::-webkit-scrollbar-thumb {
-  background: rgba(38, 128, 74, 0.6);
-  border-radius: 2px;
-}
-.custom-scrollbar-phthalo::-webkit-scrollbar-thumb:hover {
-  background: rgba(38, 128, 74, 0.8);
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.animate-shimmer {
-  animation: shimmer 2s infinite;
-}
-
-html {
-  overflow-x: hidden;
-}
-
-body {
-  overflow-x: hidden;
-}
-
-
-/* Fix slider colors */
-[data-radix-collection-item] {
-  background: #1a1a1a !important;
-}
-
-.slider-track,
-[role="slider"] ~ span {
-  background: #27272a !important;
-}
-
-[role="slider"] {
-  background: #26804A !important;
-  border: 2px solid #26804A !important;
-}
-
-/* Fix autofill styling */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #18181b inset !important;
-  -webkit-text-fill-color: #ffffff !important;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-/* For Firefox */
-input:-moz-autofill,
-input:-moz-autofill:hover,
-input:-moz-autofill:focus {
-  box-shadow: 0 0 0 30px #18181b inset !important;
-  color: #ffffff !important;
-}
-
-/* Fix for very small screens - prevent white space */
-html, body {
-  overflow-x: hidden;
-  width: 100%;
-  max-width: 100vw;
-}
-
-/* Ensure full coverage on small screens */
-body {
-  min-height: 100vh;
-  background: #18181b; /* zinc-900 fallback */
-}
-
-/* Constrain blobs on very small screens */
-@media (max-width: 444px) {
-  .animate-blob {
-    transform: scale(0.7);
-  }
-}
-
-/* Disable horizontal scroll completely */
-html, body {
-  overflow-x: hidden;
-  width: 100%;
-  max-width: 100vw;
-}
-
-body {
-  position: relative;
-}
-
-/* Also disable on the main app wrapper */
-#__next {
-  overflow-x: hidden;
-}
-
-/* Replace the old shimmer animation with this */
 @keyframes shimmer-continuous {
   0% {
     transform: translateX(-100%);
@@ -239,7 +288,30 @@ body {
   }
 }
 
-/* Admin login input fix */
+.animate-shimmer {
+  animation: shimmer-continuous 2s infinite;
+}
+
+/* ========================================
+   FORM & INPUT FIXES
+   ======================================== */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #0c0c0f inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input:-moz-autofill,
+input:-moz-autofill:hover,
+input:-moz-autofill:focus {
+  box-shadow: 0 0 0 30px #0c0c0f inset !important;
+  color: #ffffff !important;
+}
+
 input[type="email"],
 input[type="password"] {
   color: white !important;
@@ -250,10 +322,27 @@ input[type="password"]::placeholder {
   color: #71717a !important;
 }
 
-/* Fix Select dropdown styling */
+/* ========================================
+   RADIX / SHADCN OVERRIDES
+   ======================================== */
+
+[data-radix-collection-item] {
+  background: #0c0c0f !important;
+}
+
+.slider-track,
+[role="slider"] ~ span {
+  background: #27272a !important;
+}
+
+[role="slider"] {
+  background: #26804A !important;
+  border: 2px solid #26804A !important;
+}
+
 [role="listbox"],
 [data-radix-select-content] {
-  background-color: #18181b !important;
+  background-color: #0c0c0f !important;
   border: 1px solid #3f3f46 !important;
 }
 
@@ -274,13 +363,12 @@ input[type="password"]::placeholder {
   color: white !important;
 }
 
-/* Fix Recharts tooltip styling */
 .recharts-tooltip-wrapper {
   outline: none !important;
 }
 
 .recharts-default-tooltip {
-  background-color: #18181b !important;
+  background-color: #0c0c0f !important;
   border: 1px solid #3f3f46 !important;
   border-radius: 8px !important;
 }
@@ -288,4 +376,29 @@ input[type="password"]::placeholder {
 .recharts-tooltip-label,
 .recharts-tooltip-item {
   color: #e4e4e7 !important;
+}
+
+/* ========================================
+   LAYOUT SAFEGUARDS
+   ======================================== */
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+}
+
+#__next {
+  overflow-x: hidden;
+}
+
+@media (max-width: 444px) {
+  .animate-blob {
+    transform: scale(0.7);
+  }
 }

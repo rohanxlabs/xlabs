@@ -38,9 +38,9 @@ export function Timeline() {
 
   return (
     <div
-      className={`space-y-12 relative ${
+      className={`space-y-10 relative ${
         !isMobile
-          ? "before:absolute before:inset-0 before:left-1/2 before:ml-0 before:-translate-x-px before:border-l-2 before:border-zinc-700 before:h-full before:z-0"
+          ? "before:absolute before:inset-0 before:left-1/2 before:-translate-x-px before:border-l-2 before:border-white/[0.06] before:h-full before:z-0"
           : ""
       }`}
     >
@@ -51,20 +51,20 @@ export function Timeline() {
         >
           <motion.div
             className={`w-full md:w-1/2 ${index % 2 === 0 ? "md:pl-10" : "md:pr-10"}`}
-            initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+            initial={{ opacity: 0, x: index % 2 === 0 ? 20 : -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-40px" }}
           >
-            <div className="relative overflow-hidden rounded-xl bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 p-6 transition-all duration-300 hover:border-phthalo-500/50">
-              <div className="absolute -inset-1 bg-gradient-to-r from-phthalo-500/10 to-phthalo-700/10 rounded-xl blur opacity-25 hover:opacity-100 transition duration-1000 hover:duration-200"></div>
-
+            <div className="card card-hover p-6 md:p-8">
               <div className="relative">
-                <h3 className="text-xl font-bold">{experience.title}</h3>
-                <div className="text-zinc-400 mb-4">
-                  {experience.company} | {experience.period}
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-2 h-2 rounded-full bg-phthalo-500 shadow-lg shadow-phthalo-500/40"></div>
+                  <span className="text-xs font-medium text-phthalo-400 uppercase tracking-wider">{experience.period}</span>
                 </div>
-                <p className="text-zinc-300">{experience.description}</p>
+                <h3 className="text-xl font-bold mb-1 text-content-primary">{experience.title}</h3>
+                <div className="text-content-secondary mb-4 text-sm font-medium">{experience.company}</div>
+                <p className="text-content-secondary text-sm leading-relaxed">{experience.description}</p>
               </div>
             </div>
           </motion.div>
@@ -72,13 +72,13 @@ export function Timeline() {
           {!isMobile && (
             <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
               <motion.div
-                className="w-6 h-6 rounded-full bg-gradient-to-r from-phthalo-600 to-phthalo-800 z-10 flex items-center justify-center"
+                className="w-4 h-4 rounded-full bg-gradient-to-r from-phthalo-600 to-phthalo-800 z-10 flex items-center justify-center border-2 border-[#09090b] shadow-lg shadow-phthalo-900/30"
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
-                transition={{ duration: 0.3 }}
-                viewport={{ once: true }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                viewport={{ once: true, margin: "-40px" }}
               >
-                <div className="w-2 h-2 rounded-full bg-white"></div>
+                <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
               </motion.div>
             </div>
           )}
