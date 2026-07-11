@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { easings, durations, springs } from "@/lib/motion-presets"
 
 interface SkillBadgeProps {
   name: string
@@ -12,7 +13,7 @@ export function SkillBadge({ name, level }: SkillBadgeProps) {
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      transition={{ duration: durations.slow, ease: easings.smooth }}
       viewport={{ once: true, margin: "-20px" }}
       whileHover={{ y: -4 }}
       className="w-40 shrink-0"
@@ -26,7 +27,7 @@ export function SkillBadge({ name, level }: SkillBadgeProps) {
               className="absolute top-0 left-0 h-full bg-gradient-to-r from-phthalo-600 to-phthalo-800 rounded-full"
               initial={{ width: 0 }}
               whileInView={{ width: `${level}%` }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              transition={{ duration: durations.slower, delay: 0.2, ease: easings.emphasized }}
               viewport={{ once: true }}
             />
           </div>

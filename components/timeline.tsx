@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { useMobile } from "@/hooks/use-mobile"
+import { easings, durations, staggers } from "@/lib/motion-presets"
 
 const experiences = [
   {
@@ -16,7 +17,7 @@ const experiences = [
     company: "Personal projects",
     period: "April 2025 - Present",
     description:
-      "Built an autonomous AI assistant capable of reasoning, task planning, and multi-step execution using LLM workflows abd tool integration.",
+      "Built an autonomous AI assistant capable of reasoning, task planning, and multi-step execution using LLM workflows and tool integration.",
   },
   {
     title: "Real-Time Object Detection",
@@ -45,15 +46,19 @@ export function Timeline() {
       }`}
     >
       {experiences.map((experience, index) => (
-        <div
+        <motion.div
           key={index}
           className={`relative z-10 flex items-center ${index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"}`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: durations.slow, delay: index * staggers.default, ease: easings.smooth }}
         >
           <motion.div
             className={`w-full md:w-1/2 ${index % 2 === 0 ? "md:pl-10" : "md:pr-10"}`}
             initial={{ opacity: 0, x: index % 2 === 0 ? 20 : -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            transition={{ duration: durations.slow, delay: index * staggers.default, ease: easings.smooth }}
             viewport={{ once: true, margin: "-40px" }}
           >
             <div className="card card-hover p-6 md:p-8">
@@ -75,14 +80,14 @@ export function Timeline() {
                 className="w-4 h-4 rounded-full bg-gradient-to-r from-phthalo-600 to-phthalo-800 z-10 flex items-center justify-center border-2 border-[#09090b] shadow-lg shadow-phthalo-900/30"
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
+                transition={{ duration: durations.quick, delay: index * staggers.default + 0.2, ease: easings.smooth }}
                 viewport={{ once: true, margin: "-40px" }}
               >
                 <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
               </motion.div>
             </div>
           )}
-        </div>
+        </motion.div>
       ))}
     </div>
   )

@@ -1,5 +1,8 @@
+"use client"
+
 import Link from "next/link"
 import { ArrowRight, Github, GraduationCap, Linkedin, Mail } from "lucide-react"
+import { motion } from "framer-motion"
 
 import { Button } from "@/components/ui/button"
 import { ProjectCard } from "@/components/project-card"
@@ -14,125 +17,106 @@ import { GlassmorphicCard } from "@/components/glassmorphic-card"
 import { GrindSection } from "@/components/grind-section"
 import { Marquee } from "@/components/magicui/marquee"
 import { ECGProjectCard } from "@/components/ECGProjectCard"
+import { easings, durations } from "@/lib/motion-presets"
+import { MagneticButton } from "@/components/magnetic-button"
+
+const viewport = {
+  once: true,
+  margin: "-100px 0px -100px 0px",
+  amount: 0.2,
+}
+
+const container = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+}
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: durations.default,
+      ease: easings.smooth,
+    },
+  },
+}
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen text-white overflow-hidden">
+    <motion.div
+      className="min-h-screen text-white overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+    >
       <ScrollProgress />
       <FloatingNav />
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-20">
-        <div className="absolute inset-0 z-0" aria-hidden="true">
+        <motion.div
+          className="absolute inset-0 z-0"
+          aria-hidden="true"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
           <div className="absolute top-20 left-10 w-72 h-72 bg-phthalo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
           <div className="absolute top-40 right-10 w-72 h-72 bg-phthalo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
           <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-phthalo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-        </div>
+        </motion.div>
 
-        <div className="container relative z-10 px-4 sm:px-6">
+        <motion.div
+          className="container relative z-10 px-4 sm:px-6"
+          variants={container}
+          initial="hidden"
+          animate="visible"
+        >
           {/* Mobile Layout */}
           <div className="lg:hidden flex flex-col items-center text-center space-y-8">
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
+            <motion.h1 variants={item} className="text-4xl sm:text-5xl font-bold tracking-tight">
               <span className="block text-content-primary">Hi, I'm</span>
               <span className="block bg-clip-text text-transparent bg-gradient-to-r from-phthalo-400 to-phthalo-600">
                 Rohan
               </span>
-            </h1>
+            </motion.h1>
 
-            <div className="flex justify-center">
+            <motion.div variants={item} className="flex justify-center">
               <CreativeHero />
-            </div>
+            </motion.div>
 
-            <div className="inline-flex items-center rounded-full bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] px-4 py-1.5">
+            <motion.div
+              variants={item}
+              className="inline-flex items-center rounded-full bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] px-4 py-1.5"
+            >
               <span className="relative z-10 text-sm font-medium text-content-secondary">
                 AI/ML Engineer · Autonomous Robotics Systems
               </span>
-            </div>
+            </motion.div>
 
-            <p className="text-lg text-content-secondary max-w-[600px] leading-relaxed">
+            <motion.p variants={item} className="text-lg text-content-secondary max-w-[600px] leading-relaxed">
               Focused on AI/ML, robotics, and autonomous system for intelligent perception, control, and decision-making.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-wrap gap-4 pt-2 justify-center">
-              <Link href="#projects">
-                <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 hover:from-phthalo-500 hover:to-phthalo-700 border-0 rounded-lg px-6 py-3 text-base font-medium shadow-lg shadow-phthalo-900/20 hover:shadow-xl hover:shadow-phthalo-900/30 transition-all">
-                  <span className="relative z-10 flex items-center">
-                    View Projects <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                </Button>
-              </Link>
-              <Link href="#contact">
-                <Button
-                  variant="outline"
-                  className="border-white/[0.1] text-content-secondary hover:text-white hover:border-white/[0.2] bg-transparent rounded-lg px-6 py-3 text-base font-medium"
-                >
-                  Contact Me
-                </Button>
-              </Link>
-            </div>
-
-            <div className="flex gap-3 justify-center pt-2">
-              <Link href="https://github.com/rohanxlabs" target="_blank" rel="noopener noreferrer">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-content-secondary hover:text-white border border-white/[0.08]"
-                  aria-label="GitHub"
-                >
-                  <Github className="h-5 w-5" />
-                </Button>
-              </Link>
-              <Link href="https://www.linkedin.com/in/rohanxlabs" target="_blank" rel="noopener noreferrer">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-content-secondary hover:text-white border border-white/[0.08]"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="h-5 w-5" />
-                </Button>
-              </Link>
-              <Link href="mailto:rohanprajapati7970@gmail.com">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-content-secondary hover:text-white border border-white/[0.08]"
-                  aria-label="Email"
-                >
-                  <Mail className="h-5 w-5" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          {/* Desktop Layout */}
-          <div className="hidden lg:grid grid-cols-2 gap-16 items-center">
-            <div className="space-y-8 text-left">
-              <div className="inline-flex items-center rounded-full bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] px-4 py-1.5">
-                <span className="text-sm font-medium text-content-secondary">
-                  AI/ML Engineer · Autonomous Robotics Systems
-                </span>
-              </div>
-
-              <h1 className="text-6xl md:text-7xl font-bold tracking-tight leading-[1.1]">
-                <span className="block text-content-primary">Hi, I'm</span>
-                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-phthalo-400 to-phthalo-600">
-                  Rohan
-                </span>
-              </h1>
-              <p className="text-xl text-content-secondary max-w-[560px] leading-relaxed">
-                Focused on AI/ML, robotics, and autonomous systems for intelligent perception, control, and decision-making.
-              </p>
-              <div className="flex flex-wrap gap-4 pt-2">
+            <motion.div variants={item} className="flex flex-wrap gap-4 pt-2 justify-center">
+              <MagneticButton>
                 <Link href="#projects">
-                  <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 hover:from-phthalo-500 hover:to-phthalo-700 border-0 rounded-lg px-6 py-3 text-base font-medium shadow-lg shadow-phthalo-900/20 hover:shadow-xl hover:shadow-phthalo-900/30 transition-all">
+                  <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0 rounded-lg px-6 py-3 text-base font-medium shadow-lg shadow-phthalo-900/20">
                     <span className="relative z-10 flex items-center">
                       View Projects <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   </Button>
                 </Link>
+              </MagneticButton>
+              <MagneticButton>
                 <Link href="#contact">
                   <Button
                     variant="outline"
@@ -141,56 +125,159 @@ export default function Portfolio() {
                     Contact Me
                   </Button>
                 </Link>
-              </div>
-              <div className="flex gap-3 pt-2">
+              </MagneticButton>
+            </motion.div>
+
+            <motion.div variants={item} className="flex gap-3 justify-center pt-2">
+              <MagneticButton>
                 <Link href="https://github.com/rohanxlabs" target="_blank" rel="noopener noreferrer">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-content-secondary hover:text-white border border-white/[0.08]"
+                    className="rounded-full bg-white/[0.04] text-content-secondary border border-white/[0.08] w-10 h-10"
                     aria-label="GitHub"
                   >
                     <Github className="h-5 w-5" />
                   </Button>
                 </Link>
+              </MagneticButton>
+              <MagneticButton>
                 <Link href="https://www.linkedin.com/in/rohanxlabs" target="_blank" rel="noopener noreferrer">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-content-secondary hover:text-white border border-white/[0.08]"
+                    className="rounded-full bg-white/[0.04] text-content-secondary border border-white/[0.08] w-10 h-10"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="h-5 w-5" />
                   </Button>
                 </Link>
+              </MagneticButton>
+              <MagneticButton>
                 <Link href="mailto:rohanprajapati7970@gmail.com">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-content-secondary hover:text-white border border-white/[0.08]"
+                    className="rounded-full bg-white/[0.04] text-content-secondary border border-white/[0.08] w-10 h-10"
                     aria-label="Email"
                   >
                     <Mail className="h-5 w-5" />
                   </Button>
                 </Link>
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <CreativeHero />
-            </div>
+              </MagneticButton>
+            </motion.div>
           </div>
-        </div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 text-content-tertiary">
+          {/* Desktop Layout */}
+          <div className="hidden lg:grid grid-cols-2 gap-16 items-center">
+            <div className="space-y-8 text-left">
+              <motion.div variants={item} className="inline-flex items-center rounded-full bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] px-4 py-1.5">
+                <span className="text-sm font-medium text-content-secondary">
+                  AI/ML Engineer · Autonomous Robotics Systems
+                </span>
+              </motion.div>
+
+              <motion.h1 variants={item} className="text-6xl md:text-7xl font-bold tracking-tight leading-[1.1]">
+                <span className="block text-content-primary">Hi, I'm</span>
+                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-phthalo-400 to-phthalo-600">
+                  Rohan
+                </span>
+              </motion.h1>
+              <motion.p variants={item} className="text-xl text-content-secondary max-w-[560px] leading-relaxed">
+                Focused on AI/ML, robotics, and autonomous systems for intelligent perception, control, and decision-making.
+              </motion.p>
+              <motion.div variants={item} className="flex flex-wrap gap-4 pt-2">
+                <MagneticButton>
+                  <Link href="#projects">
+                    <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0 rounded-lg px-6 py-3 text-base font-medium shadow-lg shadow-phthalo-900/20">
+                      <span className="relative z-10 flex items-center">
+                        View Projects <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </Button>
+                  </Link>
+                </MagneticButton>
+                <MagneticButton>
+                  <Link href="#contact">
+                    <Button
+                      variant="outline"
+                      className="border-white/[0.1] text-content-secondary hover:text-white hover:border-white/[0.2] bg-transparent rounded-lg px-6 py-3 text-base font-medium"
+                    >
+                      Contact Me
+                    </Button>
+                  </Link>
+                </MagneticButton>
+              </motion.div>
+              <motion.div variants={item} className="flex gap-3 pt-2">
+                <MagneticButton>
+                  <Link href="https://github.com/rohanxlabs" target="_blank" rel="noopener noreferrer">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-full bg-white/[0.04] text-content-secondary border border-white/[0.08] w-10 h-10"
+                      aria-label="GitHub"
+                    >
+                      <Github className="h-5 w-5" />
+                    </Button>
+                  </Link>
+                </MagneticButton>
+                <MagneticButton>
+                  <Link href="https://www.linkedin.com/in/rohanxlabs" target="_blank" rel="noopener noreferrer">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-full bg-white/[0.04] text-content-secondary border border-white/[0.08] w-10 h-10"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin className="h-5 w-5" />
+                    </Button>
+                  </Link>
+                </MagneticButton>
+                <MagneticButton>
+                  <Link href="mailto:rohanprajapati7970@gmail.com">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-full bg-white/[0.04] text-content-secondary border border-white/[0.08] w-10 h-10"
+                      aria-label="Email"
+                    >
+                      <Mail className="h-5 w-5" />
+                    </Button>
+                  </Link>
+                </MagneticButton>
+              </motion.div>
+            </div>
+            <motion.div variants={item} className="flex justify-center">
+              <CreativeHero />
+            </motion.div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 text-content-tertiary"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.6 }}
+        >
           <span className="text-xs font-medium uppercase tracking-widest">Scroll</span>
           <div className="w-6 h-10 rounded-full border-2 border-white/10 flex justify-center items-start p-1.5">
-            <div className="w-1 h-1.5 rounded-full bg-content-secondary animate-bounce"></div>
+            <motion.div
+              className="w-1 h-1.5 rounded-full bg-content-secondary"
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="section-py relative">
+      <motion.section
+        id="about"
+        className="section-py relative"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={viewport}
+        transition={{ duration: 0.6 }}
+      >
         <div className="absolute inset-0 z-0" aria-hidden="true">
           <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-phthalo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
           <div className="absolute bottom-1/3 left-1/3 w-64 h-64 bg-phthalo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
@@ -200,7 +287,13 @@ export default function Portfolio() {
           <SectionHeading title="About Me" subtitle="My background and journey" />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mt-16">
-            <div className="relative flex justify-center lg:justify-start">
+            <motion.div
+              className="relative flex justify-center lg:justify-start"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={viewport}
+              transition={{ duration: 0.6, ease: easings.smooth }}
+            >
               <div className="relative aspect-square w-full max-w-md rounded-2xl overflow-hidden border border-white/[0.06] shadow-2xl shadow-black/20">
                 <img
                   src="/image.jpg"
@@ -215,9 +308,15 @@ export default function Portfolio() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="space-y-6">
+            <motion.div
+              className="space-y-6"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={viewport}
+              transition={{ duration: 0.6, ease: easings.smooth, delay: 0.1 }}
+            >
               <GlassmorphicCard>
                 <div className="space-y-5">
                   <p className="text-lg text-content-secondary leading-relaxed">
@@ -263,13 +362,20 @@ export default function Portfolio() {
                   </div>
                 </div>
               </GlassmorphicCard>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Skills Section */}
-      <section id="skills" className="section-py relative">
+{/* Skills Section */}
+      <motion.section
+        id="skills"
+        className="section-py relative"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="absolute inset-0 z-0" aria-hidden="true">
           <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-phthalo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
           <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-phthalo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
@@ -302,10 +408,17 @@ export default function Portfolio() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Projects Section */}
-      <section id="projects" className="section-py relative">
+      <motion.section
+        id="projects"
+        className="section-py relative"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="absolute inset-0 z-0" aria-hidden="true">
           <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-phthalo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
           <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
@@ -386,13 +499,19 @@ export default function Portfolio() {
               repoUrl="https://github.com/rohanxlabs/sentinel-ml.git"
             />
 
-
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Grind Section */}
-      <section className="section-py relative" id="grind">
+{/* Grind Section */}
+      <motion.section
+        className="section-py relative"
+        id="grind"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="absolute inset-0 z-0" aria-hidden="true">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-phthalo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
           <div className="absolute bottom-1/3 right-1/3 w-64 h-64 bg-phthalo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
@@ -401,10 +520,17 @@ export default function Portfolio() {
         <div className="container relative z-10">
           <GrindSection />
         </div>
-      </section>
+      </motion.section>
 
       {/* Experience Section */}
-      <section id="experience" className="section-py relative">
+      <motion.section
+        id="experience"
+        className="section-py relative"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="absolute inset-0 z-0" aria-hidden="true">
           <div className="absolute top-1/3 right-1/3 w-64 h-64 bg-phthalo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
           <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-phthalo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
@@ -417,10 +543,17 @@ export default function Portfolio() {
             <Timeline />
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Contact Section */}
-      <section id="contact" className="section-py relative">
+      <motion.section
+        id="contact"
+        className="section-py relative"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="absolute inset-0 z-0" aria-hidden="true">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-phthalo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
           <div className="absolute bottom-1/3 right-1/3 w-64 h-64 bg-phthalo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
@@ -479,10 +612,16 @@ export default function Portfolio() {
             <ContactForm />
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Learn CTA Section */}
-      <section className="section-py relative">
+      <motion.section
+        className="section-py relative"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="absolute inset-0 z-0" aria-hidden="true">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-phthalo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
           <div className="absolute bottom-1/3 right-1/3 w-64 h-64 bg-phthalo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
@@ -491,7 +630,13 @@ export default function Portfolio() {
         <div className="container relative z-10">
           <SectionHeading title="Learn With Me" subtitle="AI/ML Engineering" />
 
-          <div className="max-w-3xl mx-auto mt-16">
+          <motion.div
+            className="max-w-3xl mx-auto mt-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewport}
+            transition={{ duration: 0.6, delay: 0.2, ease: easings.smooth }}
+          >
             <GlassmorphicCard>
               <div className="text-center space-y-6">
                 <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-phthalo-500 to-phthalo-700 flex items-center justify-center shadow-lg shadow-phthalo-900/30">
@@ -505,21 +650,22 @@ export default function Portfolio() {
                 </p>
 
                 <div className="pt-4">
-                  <Link href="/learn">
-                    <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 hover:from-phthalo-500 hover:to-phthalo-700 border-0 text-lg px-8 py-3 rounded-lg shadow-lg shadow-phthalo-900/20 hover:shadow-xl hover:shadow-phthalo-900/30 transition-all">
-                      <span className="relative z-10 flex items-center">
-                        Take the Quiz
-                        <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                      </span>
-                      <span className="absolute inset-0 bg-gradient-to-r from-phthalo-700 to-phthalo-900 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                    </Button>
-                  </Link>
+                  <MagneticButton>
+                    <Link href="/learn">
+                      <Button className="relative overflow-hidden group bg-gradient-to-r from-phthalo-600 to-phthalo-800 border-0 text-lg px-8 py-3 rounded-lg shadow-lg shadow-phthalo-900/20">
+                        <span className="relative z-10 flex items-center">
+                          Take the Quiz
+                          <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                        </span>
+                      </Button>
+                    </Link>
+                  </MagneticButton>
                 </div>
               </div>
             </GlassmorphicCard>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
       <footer className="border-t border-white/[0.06] py-12">
@@ -540,7 +686,7 @@ export default function Portfolio() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-content-secondary hover:text-white border border-white/[0.08]"
+                className="rounded-full bg-white/[0.04] text-content-secondary border border-white/[0.08] w-10 h-10"
               >
                 <Github className="h-5 w-5" />
               </Button>
@@ -549,7 +695,7 @@ export default function Portfolio() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-content-secondary hover:text-white border border-white/[0.08]"
+                className="rounded-full bg-white/[0.04] text-content-secondary border border-white/[0.08] w-10 h-10"
               >
                 <Linkedin className="h-5 w-5" />
               </Button>
@@ -558,7 +704,7 @@ export default function Portfolio() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-content-secondary hover:text-white border border-white/[0.08]"
+                className="rounded-full bg-white/[0.04] text-content-secondary border border-white/[0.08] w-10 h-10"
               >
                 <Mail className="h-5 w-5" />
               </Button>
@@ -566,6 +712,6 @@ export default function Portfolio() {
           </div>
         </div>
       </footer>
-    </div>
+    </motion.div>
   )
 }

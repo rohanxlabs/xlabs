@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Play, ChevronLeft, ChevronRight, Trophy, Target, GripHorizontal } from "lucide-react"
 import { SectionHeading } from "@/components/section-heading"
 import { useMobile } from "@/hooks/use-mobile"
+import { easings, durations, springs } from "@/lib/motion-presets"
 
 const mathJourney = [
   {
@@ -106,7 +107,6 @@ const gymJourney = [
 
 ]
 
-// Placeholder math board images - you'll replace these with your actual images
 const mathImages = [
   "/m3.jpg",
   "/m2.jpg",
@@ -116,7 +116,7 @@ const mathImages = [
 export function GrindSection() {
   const [mode, setMode] = useState<"physical" | "mental" | "quote">("quote")
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [sliderValue, setSliderValue] = useState(0) // -50 to 50, 0 is center
+  const [sliderValue, setSliderValue] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
   const sliderRef = useRef<HTMLDivElement>(null)
   const isMobile = useMobile()
@@ -222,13 +222,18 @@ const handleMouseDown = (e: React.MouseEvent) => {
       `}</style>
 
       {/* Creative Slider Control */}
-      <div className="flex justify-center mb-12">
+      <motion.div
+        className="flex justify-center mb-12"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: durations.default, delay: 0.3, ease: easings.smooth }}
+      >
         <div
           ref={sliderRef}
           className="relative w-96 h-20 bg-[#0c0c0f] backdrop-blur-sm border border-white/[0.06] rounded-full overflow-hidden cursor-pointer select-none"
         >
           {/* Animated background glow */}
-          <div className="absolute -inset-2 bg-gradient-to-r from-red-500/20 via-phthalo-500/20 to-blue-500/20 rounded-full blur-lg opacity-50 animate-pulse"></div>
+          <div className="absolute -inset-2 bg-gradient-to-r from-red-500/20 via-phthalo-500/20 to-blue-500/20 rounded-full blur-lg opacity-50"></div>
 
           {/* Track background with dynamic gradient */}
           <div
@@ -284,17 +289,17 @@ const handleMouseDown = (e: React.MouseEvent) => {
             animate={{
               scale: isDragging ? 1.15 : 1,
             }}
-            transition={{ duration: 0.1 }}
+            transition={{ duration: durations.quick }}
           >
             {/* Handle inner design */}
             <div className="relative w-full h-full rounded-full border-2 border-white/20 flex items-center justify-center">
               <GripHorizontal className="h-6 w-6 text-white/80" />
 
               {/* Pulsing center dot */}
-              <div className="absolute w-2 h-2 bg-white rounded-full animate-pulse"></div>
+              <div className="absolute w-2 h-2 bg-white rounded-full"></div>
 
               {/* Handle glow effect */}
-              <div className="absolute inset-0 rounded-full bg-white/10 animate-pulse"></div>
+              <div className="absolute inset-0 rounded-full bg-white/10"></div>
             </div>
           </motion.div>
 
@@ -324,7 +329,7 @@ const handleMouseDown = (e: React.MouseEvent) => {
             </motion.div>
           )}
         </div>
-      </div>
+      </motion.div>
 
       {/* Content Area */}
       <div className="max-w-6xl mx-auto">
@@ -335,7 +340,7 @@ const handleMouseDown = (e: React.MouseEvent) => {
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: durations.quick, ease: easings.smooth }}
               className="grid grid-cols-1 lg:grid-cols-2 gap-8"
             >
               {/* Video Section */}
