@@ -43,3 +43,5 @@ export function AnimatedCounter({
     </motion.span>
   )
 }
+
+export { AnimatedCounter as Counter }
