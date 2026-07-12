@@ -10,7 +10,7 @@ import { useMobile } from "@/hooks/use-mobile"
 import { easings, durations, springs } from "@/lib/motion-presets"
 
 export function FloatingNav() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("")
   const isMobile = useMobile()
@@ -20,13 +20,13 @@ export function FloatingNav() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
       
-      if (currentScrollY > 100) {
-        setIsVisible(true)
+      if (currentScrollY > 50) {
+        setIsScrolled(true)
       } else {
-        setIsVisible(false)
+        setIsScrolled(false)
       }
 
-      const sections = ["about", "skills", "projects", "grind", "experience", "contact"]
+      const sections = ["about", "skills", "ai-lab", "grind", "experience", "contact"]
       const scrollPos = window.scrollY + 120
 
       for (const section of sections) {
@@ -44,7 +44,7 @@ export function FloatingNav() {
   const navItems = [
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
+    { name: "AI Lab", href: "#ai-lab" },
     { name: "Grind", href: "#grind" },
     { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
@@ -58,112 +58,128 @@ export function FloatingNav() {
 
   return (
     <>
-      <AnimatePresence>
-        <motion.div
-          className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300`}
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ 
-            opacity: isVisible ? 1 : 0, 
-            y: isVisible ? 0 : -16,
-            pointerEvents: isVisible ? "auto" : "none"
+      <motion.header
+        className="fixed top-0 left-0 right-0 z-50"
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, ease: easings.smooth }}
+      >
+        <motion.div 
+          className="mx-auto max-w-6xl px-4 sm:px-6 py-4"
+          animate={{
+            backdropFilter: isScrolled ? "blur(20px)" : "blur(0px)",
+            backgroundColor: isScrolled ? "rgba(15, 18, 24, 0.8)" : "rgba(15, 18, 24, 0)",
+            borderRadius: isScrolled ? "9999px" : "0px",
+            padding: isScrolled ? "0.5rem 1rem" : "1rem 0",
+            boxShadow: isScrolled ? "0 4px 30px rgba(0, 0, 0, 0.3)" : "none",
+            border: isScrolled ? "1px solid rgba(34, 197, 94, 0.1)" : "none",
           }}
-          exit={{ opacity: 0, y: -16 }}
-          transition={{ duration: durations.quick, ease: easings.smooth }}
+          transition={{ duration: 0.3, ease: easings.smooth }}
         >
-          <div className="relative px-2 py-2 rounded-full glass-strong shadow-lg shadow-black/20">
-            {isMobile ? (
-              <div className="relative flex items-center justify-between gap-4">
-                <Link href="/" className="font-bold text-lg px-2">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-phthalo-400 to-phthalo-600">
-                    Rohan
-                  </span>
-                  <span className="text-white">Dev</span>
+          <nav className="flex items-center justify-between" aria-label="Main navigation">
+            <Link 
+              href="/" 
+              className="font-bold text-xl relative z-10 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-lg px-2 py-1"
+            >
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-emerald-600">
+                Rohan
+              </span>
+              <span className="text-white">Dev</span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={handleNavClick}
+                  className={`px-4 py-2 text-sm font-medium rounded-full relative transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 ${
+                    activeSection === item.href.replace("#", "")
+                      ? "text-white"
+                      : "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
+                  }`}
+                >
+                  {activeSection === item.href.replace("#", "") && (
+                    <motion.div
+                      className="absolute inset-0 bg-green-500/10 rounded-full"
+                      layoutId="activeBackground"
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{item.name}</span>
                 </Link>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-zinc-400 hover:text-white hover:bg-white/[0.06] rounded-lg w-10 h-10"
-                  onClick={() => setIsOpen(!isOpen)}
-                  aria-label="Toggle menu"
-                  aria-expanded={isOpen}
+              ))}
+            </div>
+
+            {/* Mobile menu button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden text-zinc-400 hover:text-white hover:bg-white/[0.06] rounded-full w-10 h-10 focus:outline-none focus:ring-2 focus:ring-green-500"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={isOpen ? "close" : "open"}
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 90 }}
+                  transition={{ duration: durations.quick }}
                 >
                   {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-                </Button>
-              </div>
-            ) : (
-              <div className="relative flex items-center gap-1">
-                <Link href="/" className="font-bold text-lg mr-4 px-2">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-phthalo-400 to-phthalo-600">
-                    Rohan
-                  </span>
-                  <span className="text-white">Dev</span>
-                </Link>
-                {navItems.map((item, i) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: durations.quick, delay: i * 0.05 }}
-                  >
-                    <Link
-                      href={item.href}
-                      className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all relative ${
-                        activeSection === item.href.replace("#", "")
-                          ? "text-white bg-white/[0.08]"
-                          : "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
-                      }`}
-                      onClick={handleNavClick}
-                    >
-                      {item.name}
-                      {activeSection === item.href.replace("#", "") && (
-                        <motion.div
-                          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-phthalo-500"
-                          layoutId="nav-indicator"
-                          transition={{ duration: durations.quick }}
-                        />
-                      )}
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            )}
-          </div>
+                </motion.div>
+              </AnimatePresence>
+            </Button>
+          </nav>
         </motion.div>
-      </AnimatePresence>
+      </motion.header>
 
       {/* Mobile menu overlay */}
       <AnimatePresence>
-        {isMobile && (
+        {isOpen && (
           <motion.div
-            className={`fixed inset-0 z-40 bg-black/80 backdrop-blur-xl`}
+            className="fixed inset-0 z-40 md:hidden"
             initial={{ opacity: 0 }}
-            animate={{ opacity: isOpen ? 1 : 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: durations.quick }}
-            aria-hidden={!isOpen}
           >
-            <div className="flex flex-col items-center justify-center h-full gap-2">
+            <motion.div 
+              className="absolute inset-0 bg-black/60 backdrop-blur-xl"
+              onClick={() => setIsOpen(false)}
+              aria-hidden="true"
+            />
+            <motion.div
+              className="relative flex flex-col items-center justify-center h-full gap-4 px-8"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              transition={{ duration: durations.default, ease: easings.smooth }}
+            >
               {navItems.map((item, i) => (
                 <motion.div
                   key={item.name}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : 20 }}
-                  transition={{ duration: durations.default, delay: i * 0.05 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: durations.quick, delay: i * 0.08 }}
                 >
                   <Link
                     href={item.href}
-                    className={`px-8 py-4 text-2xl font-medium rounded-2xl transition-all ${
-                      activeSection === item.href.replace("#", "")
-                        ? "text-white bg-white/[0.08]"
-                        : "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
-                    }`}
                     onClick={handleNavClick}
+                    className={`text-2xl font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-lg px-4 py-2 ${
+                      activeSection === item.href.replace("#", "")
+                        ? "text-green-400"
+                        : "text-zinc-300 hover:text-white"
+                    }`}
                   >
                     {item.name}
                   </Link>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

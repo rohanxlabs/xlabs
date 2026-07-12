@@ -1,8 +1,9 @@
 "use client"
 
+import { Suspense, lazy } from "react"
 import Link from "next/link"
-import { ArrowRight, Github, GraduationCap, Linkedin, Mail } from "lucide-react"
-import { motion } from "framer-motion"
+import { ArrowRight, Github, Linkedin, Mail, GraduationCap } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 import { Button } from "@/components/ui/button"
 import { ProjectCard } from "@/components/project-card"
@@ -19,6 +20,11 @@ import { Marquee } from "@/components/magicui/marquee"
 import { ECGProjectCard } from "@/components/ECGProjectCard"
 import { easings, durations } from "@/lib/motion-presets"
 import { MagneticButton } from "@/components/magnetic-button"
+import { AINeuralBackground } from "@/components/ai-neural-background"
+import { CursiveAccent } from "@/components/cursive-accent"
+import { AILab } from "@/components/ai-lab/ai-lab"
+
+const D3NeuralHero = lazy(() => import("@/components/3d-neural-hero").then(mod => ({ default: mod.D3NeuralHero })))
 
 const viewport = {
   once: true,
@@ -52,27 +58,34 @@ const item = {
 export default function Portfolio() {
   return (
     <motion.div
-      className="min-h-screen text-white overflow-hidden"
+      className="min-h-screen text-white overflow-hidden bg-[#05070a]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
+      <AINeuralBackground />
       <ScrollProgress />
       <FloatingNav />
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-20">
-        <motion.div
-          className="absolute inset-0 z-0"
-          aria-hidden="true"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
-        >
-          <div className="absolute top-20 left-10 w-72 h-72 bg-phthalo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-phthalo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-phthalo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-        </motion.div>
+                <Suspense fallback={null}>
+                  <D3NeuralHero />
+                </Suspense>
+                
+                <div className="absolute inset-0 z-5 pointer-events-none">
+                  <CursiveAccent 
+                    text="Building intelligent systems" 
+                    className="absolute top-32 left-8 sm:top-40 sm:left-16 text-2xl sm:text-3xl text-phthalo-400/40 rotate-[-10deg]"
+                  />
+                  <CursiveAccent 
+                    text="AI & Robotics" 
+                    className="absolute bottom-40 right-8 sm:bottom-48 sm:right-16 text-xl sm:text-2xl text-phthalo-500/30 rotate-[8deg]"
+                  />
+                  <div className="absolute top-20 left-10 w-72 h-72 bg-green-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+                  <div className="absolute top-40 right-10 w-72 h-72 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+                  <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-green-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
+                </div>
 
         <motion.div
           className="container relative z-10 px-4 sm:px-6"
@@ -177,13 +190,13 @@ export default function Portfolio() {
                 </span>
               </motion.div>
 
-              <motion.h1 variants={item} className="text-6xl md:text-7xl font-bold tracking-tight leading-[1.1]">
+              <motion.h1 variants={item} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-[0.95]">
                 <span className="block text-content-primary">Hi, I'm</span>
-                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-phthalo-400 to-phthalo-600">
+                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-phthalo-400 to-phthalo-600 mt-2">
                   Rohan
                 </span>
               </motion.h1>
-              <motion.p variants={item} className="text-xl text-content-secondary max-w-[560px] leading-relaxed">
+              <motion.p variants={item} className="text-lg sm:text-xl md:text-2xl text-content-secondary max-w-2xl leading-relaxed mt-6">
                 Focused on AI/ML, robotics, and autonomous systems for intelligent perception, control, and decision-making.
               </motion.p>
               <motion.div variants={item} className="flex flex-wrap gap-4 pt-2">
@@ -319,14 +332,14 @@ export default function Portfolio() {
             >
               <GlassmorphicCard>
                 <div className="space-y-5">
-                  <p className="text-lg text-content-secondary leading-relaxed">
-                    I'm a BTech graduate in Artificial Intelligence & Machine Learning with proven expertise as an AI/ML Engineer, AI Engineer, GenAI Engineer. I am passionate about building intelligent system that solve real-world problems.
+                  <p className="text-base sm:text-lg text-content-secondary leading-7 sm:leading-8">
+                    I'm a BTech graduate in Artificial Intelligence & Machine Learning with proven expertise as an AI/ML Engineer. I am passionate about building intelligent systems that solve real-world problems.
                   </p>
-                  <p className="text-lg text-content-secondary leading-relaxed">
-                    I specialize in developing end-to-end Machine Learning pipelines, from data processing to deploy scalable APIs. My experience includes building Scalable System and AI applications using MLOps, Generative AI, and Agentic AI best practices with cutting-edge AI/ML frameworks (TensorFlow, PyTorch, Scikit-learn) to solve complex problems in technology. My work consistently improves forecasting accuracy, optimizes portfolios, and empowers data-driven decision-making.
+                  <p className="text-base sm:text-lg text-content-secondary leading-7 sm:leading-8">
+                    I specialize in developing end-to-end Machine Learning pipelines, from data processing to deploying scalable APIs. My experience includes building scalable systems and AI applications using MLOps, Generative AI, and Agentic AI best practices with cutting-edge AI/ML frameworks (TensorFlow, PyTorch, Scikit-learn) to solve complex problems in technology. My work consistently improves forecasting accuracy, optimizes portfolios, and empowers data-driven decision-making.
                   </p>
-                  <p className="text-lg text-content-secondary leading-relaxed">
-                    Today, I work primarily with Machine Learning, Agentic AI, Embodied AI, and Autonomous Robotics Systems.I'm always looking for ways to make AI more accessible and efficient. Beyond Software I am deeply interested in Robotics and Embodied AI, Cutting-Edge AI, constantly experimenting with how intelligent agents interact with the physical world.
+                  <p className="text-base sm:text-lg text-content-secondary leading-7 sm:leading-8">
+                    Today, I work primarily with Machine Learning, Agentic AI, Embodied AI, and Autonomous Robotics Systems. I'm always looking for ways to make AI more accessible and efficient. Beyond software, I am deeply interested in robotics and embodied AI — constantly experimenting with how intelligent agents interact with the physical world.
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
@@ -410,98 +423,8 @@ export default function Portfolio() {
         </div>
       </motion.section>
 
-      {/* Projects Section */}
-      <motion.section
-        id="projects"
-        className="section-py relative"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="absolute inset-0 z-0" aria-hidden="true">
-          <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-phthalo-700 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-          <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-        </div>
-
-        <div className="container relative z-10">
-          <SectionHeading title="Featured Projects" subtitle="Some of my recent work" />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-            <ECGProjectCard
-              title="Agentic AI System"
-              description="An Autonomous Agentic AI system which work on agents system, build different agent each work."
-              tags={["Agentic AI", "Machine Learning", "FastAPI", "Python", "Langchain","Generative AI"]}
-              image="/p4.png?height=400&width=600"
-              repoUrl="https://github.com/rohanxlabs/Agentic-AI-system"
-            />
-
-
-            <ProjectCard
-              title="Recommendation System"
-              description="A research-style project which work on recommend system.A comprehensive recommendation engine implementing collaborative and content-based filtering techniques to deliver personalized user experiences."
-              tags={["Machine Learning", "Python", "MLOps", "NumPy"]}
-              image="/portfolio.jpg"
-              repoUrl="https://github.com/rohanxlabs/Recommendation-system"
-            />
-            <ProjectCard
-              title="PerceptAgent"
-              description="Real-time object detection pipeline powered by YOLOv8 + Groq LLM agentic loop. Detects, track, and reasons about live video scenes"
-              tags={["Streamlit","YOLOv8","Ultralytics","GROQ","Agent Workflows"]}
-              image="/perceptagent.png"
-              repoUrl="https://github.com/rohanxlabs/PercerptAgent.git"
-            />
-
-            <ProjectCard
-              title="6-DOF Robotic Arm (MuJoCo)"
-              description="a 6-DOF robotic arm simulation built with MuJoCo fot high-fidelity physics modeling and reinforcement learning research"
-              tags={["Python", "MuJoCo", "Gymnasium", "Reinforcement Learninf", "Stablebaseline3", "Agentic AI"]}
-              image="/trade.jpg"
-              repoUrl="https://github.com/rohanxlabs/6-DOF-Robotic-Arm-MuJoco-"
-            />
-            <ProjectCard
-              title="Vision Object Detection"
-              description="A computer vision project focused on real-time object detection, classification, and localization using state-of-the-art deep learning architectures."
-              tags={["Python", "YOLOv8", "Machine Learning", "Deep Learning", "Computer Vision"]}
-              image="/vision.jpg"
-              repoUrl="https://github.com/rohanxlabs/Vision-object-detection"
-            />
-
-            <ProjectCard
-              title="Churn Prediction"
-              description="An end-to-end machine learning system designed to predict customer churn, enabling data-driven retention strategies through advanced classification modeling."
-              tags={["Python", "FastAPI", "NumPy", "Machine Learning", "NLP"]}
-              image="/churn.png"
-              repoUrl="https://github.com/rohanxlabs/churn-ml-system"
-            />
-
-            <ProjectCard
-              title="GenAI Image Generator"
-              description="A Generative AI application built to create high-quality, stylized images using state-of-the-art diffusion models and custom promting techniques."
-              tags={["Python", "hugging face", "Stable diffusion", "generative AI", "AI"]}
-              image="/stable.jpg"
-              repoUrl="https://github.com/rohanxlabs/GenAI-Image-Generator"
-            />
-
-            <ProjectCard
-              title="RAG System"
-              description="A Retrieval-Augmented Generation (RAG) system designed to provide accurate, context-aware answers by querying custom document embeddings with Large Language Models."
-              tags={["Python", "FastAPI", "Pandas", "RAG", "NumPY", "Generative AI"]}
-              image="/rag.jpg"
-              repoUrl="https://github.com/rohanxlabs/rag-based-qa-system"
-            />
-
-            <ProjectCard
-              title="Sentinel-ml"
-              description="An end-to-end Machine Learning pipeline designed for security analytics and intelligent anomaly detection to identify potential system threats in real life"
-              tags={["Python","Machine Learning","Prometheus","Scikit-Learn","MLflow"]}
-              image="/sentinel.png"
-              repoUrl="https://github.com/rohanxlabs/sentinel-ml.git"
-            />
-
-          </div>
-        </div>
-      </motion.section>
+      {/* AI Lab Section */}
+      <AILab />
 
 {/* Grind Section */}
       <motion.section
