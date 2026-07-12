@@ -214,7 +214,7 @@ portfolio/
 │   ├── p4.png
 │   ├── portfolio.png
 │   ├── trade.png
-│   ├── VIMALRESUME.pdf          # Resume file
+│   ├── ROHANRESUME.pdf          # Resume file
 │   └── ...
 │
 └── Configuration files
@@ -338,7 +338,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 <div align="center">
 
-**Built with ❤️ by Vimal Dhama**
+**Built with ❤️ by ROHAN**
 
 *Quantitative Analyst | AI/ML Engineer | Data Scientist*
 
